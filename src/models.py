@@ -54,7 +54,7 @@ class Ships(db.Model):
         }
     
 
-class planets(db.Model):
+class Planets(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
     color: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
@@ -77,6 +77,9 @@ class Favorites(db.Model):
     ships_id: Mapped[int] = mapped_column(ForeignKey("ships.id"))
     planets_id: Mapped[int] = mapped_column(ForeignKey("planets.id"))
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+    favorites_characters: Mapped[list["Characters"]] = relationship(back_populates = "character_favorites")
+    favorites_planets: Mapped[list["Planets"]] = relationship(back_populates = "planet_favorites")
+    user_favorites: Mapped["User"] = relationship(back_populates = "favorites")
 
 
     def serialize(self):
