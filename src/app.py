@@ -142,7 +142,7 @@ def handle_Delete_favorite_planet(planet_id):
     
     fav = Favorites.query.filter_by(user_id = user_id, character_id = planet_id).first()
    
-    db.session.add(fav)
+    db.session.delete(fav)
     db.session.commit()
     
     return jsonify('Favorite Planet has been Deleted'), 200
